@@ -1,6 +1,6 @@
-# Project Title
+## Fulhaus Backend server
 
-- Fulhaus Backend server
+- Please find the frotend server here: https://github.com/leeh1102/fulhaus-fe.git
 
 ## Description
 
