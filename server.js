@@ -37,7 +37,30 @@ app.post("/acronym/", async (req, res) => {
     res.status(201).json({ "status": "success", "message": "post created" });
 })
 
+// patch /acronym/:acronymID - updates the acronym for :acronymID
+app.patch("/acronym/:acronymID", async (req, res) => {
+    await posts.findOneAndUpdate(
+        { _id: req.params.acronymID },
+        { acronym: req.body.acronym, definition: req.body.definition }
+    );
+    res.status(200).json({ "status": "success", "message": "post updated" });
+})
 
+
+// Delete /acronym/:acronymID - deletes the acronym for :acronymID
+app.delete("/acronym/:acronymID", async (req, res) => {
+    await posts.findOneAndDelete({ _id: req.params.acronymID })
+    res.status(200).json({ "status": "success", "message": "post deleted" });
+})
+
+
+// Connect to the port and database
+if (process.env.NODE_ENV === "production") {
+    app.use(express.static('build'));
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, 'build', 'index.html'))
+    })
+}
 
 app.listen(port, async (err) => {
     if (err) return console.loge(err);
