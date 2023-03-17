@@ -28,6 +28,15 @@ app.get("/acronym", async (req, res) => {
     }
 })
 
+// POST /acronym - receives an acronym and definition string & adds the acronym definition to the db
+app.post("/acronym/", async (req, res) => {
+    const acronym = req.body.acronym;
+    const definition = req.body.definition;
+    const newpost = new posts({ acronym: acronym, definition: definition });
+    const result = await newpost.save();
+    res.status(201).json({ "status": "success", "message": "post created" });
+})
+
 
 
 app.listen(port, async (err) => {
